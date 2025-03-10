@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="server.ashcrow_server.dao.MemberDao">
+    <select id="findExistingMemberById" parameterType="String" resultType="Integer">
+    <![CDATA[ 
+        select /* sqlId=dao.MemberDao.findExistingMemberById */
+               count(*)
+          from member
+         where 1=1
+           and member_id = #{memberId}
+           and del_yn = false
+    ]]>>
+    </select>
+    <insert id="signup" parameterType="MemberDto">
+    <![CDATA[ 
+        insert /* sqlId=dao.MemberDao.signup */
+          into member (member_id
+                     , member_pw
+                     , member_name
+                     , member_nickname
+        )
+        values (#{memberId}
+              , #{memberPw}
+              , #{memberName}
+              , #{memberNickName}
+        )
+    ]]>
+    </insert>
+    <select id="retrieveMemberById" parameterType="String" resultType="MemberDto">
+    <![CDATA[ 
+        select /* sqlId=dao.MemberDao.retrieveMemberById */
+               member_serial
+             , member_id
+             , member_pw
+             , member_name
+             , member_nickname
+             , creation_date_time
+             , last_access_date_time
+             , del_yn
+          from member
+         where 1=1
+           and member_id = #{memberId}
+           and del_yn = false
+    ]]>
+    </select>
+    <update id="">
+    <![CDATA[
+        update /* sqlId=dao.MemberDao.updateLastAccessDateTime */
+               member 
+           set last_access_date_time = now()
+         where 1=1
+           and member_serial = #{memberSerial}
+           and member_id = #{memberId}
+           and member_pw = #{memberPw}
+           and del_yn = false
+    ]]>>
+    </update>
+</mapper>
