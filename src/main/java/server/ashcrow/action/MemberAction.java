@@ -9,7 +9,7 @@ import jakarta.servlet.http.HttpSession;
 import lombok.extern.slf4j.Slf4j;
 import server.ashcrow.dao.MemberDao;
 import server.ashcrow.dto.MemberDto;
-import server.ashcrow.dto.ResponseDto;
+import server.ashcrow.dto.ResultCodeMessageDto;
 import server.ashcrow.security.Cryptography;
 import server.ashcrow.security.CryptographyAES;
 import server.ashcrow.security.Hashing;
@@ -22,7 +22,7 @@ public class MemberAction {
     @Autowired
     MemberDao memberDao;
 
-    public ResponseDto signup(MemberDto paramMemberDto) {
+    public ResultCodeMessageDto signup(MemberDto paramMemberDto) {
         String resultMessage;
         int resultCode = 0;
         if(paramMemberDto.validate()) {
@@ -50,14 +50,14 @@ public class MemberAction {
             log.warn(resultMessage);
         }
 
-        ResponseDto responseDto = new ResponseDto();
+        ResultCodeMessageDto responseDto = new ResultCodeMessageDto();
         responseDto.setResultCode(resultCode);
         responseDto.setResultMessage(resultMessage);
         
         return responseDto;
     }
 
-    public ResponseDto login(MemberDto paramMemberDto, HttpSession httpSession) {
+    public ResultCodeMessageDto login(MemberDto paramMemberDto, HttpSession httpSession) {
         log.info(paramMemberDto.toString());
         
         String id = paramMemberDto.getMemberId();
@@ -87,9 +87,9 @@ public class MemberAction {
             }
         }
         
-        ResponseDto responseDto = new ResponseDto();
+        ResultCodeMessageDto resultCodeMessageDto = new ResultCodeMessageDto();
         
-        return responseDto;
+        return resultCodeMessageDto;
     }
 
 }

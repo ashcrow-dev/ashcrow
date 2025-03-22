@@ -6,7 +6,7 @@ import java.util.Map;
 import lombok.Data;
 
 @Data
-public class ResponseDto implements Dto {
+public class ResultCodeMessageDto implements Dto {
     private int resultCode;
     private String resultMessage;
 

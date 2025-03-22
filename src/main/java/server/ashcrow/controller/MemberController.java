@@ -11,7 +11,7 @@ import jakarta.servlet.http.HttpSession;
 import lombok.extern.slf4j.Slf4j;
 import server.ashcrow.action.MemberAction;
 import server.ashcrow.dto.MemberDto;
-import server.ashcrow.dto.ResponseDto;
+import server.ashcrow.dto.ResultCodeMessageDto;
 
 @Slf4j
 @CrossOrigin(allowCredentials = "true", originPatterns = { "http://localhost:5173" })
@@ -25,7 +25,7 @@ public class MemberController {
         log.info(paramMemberDto.toString());
 
         
-        ResponseDto responseDto = memberAction.signup(paramMemberDto);
+        ResultCodeMessageDto responseDto = memberAction.signup(paramMemberDto);
         
         JSONObject resultJsonObj = new JSONObject();
         resultJsonObj.put("responseDto", responseDto.toMap());
@@ -37,10 +37,10 @@ public class MemberController {
     public String login(@RequestBody MemberDto paramMemberDto, HttpSession httpSession) {
         log.info(paramMemberDto.toString());
 
-        ResponseDto responseDto = memberAction.login(paramMemberDto, httpSession);
+        ResultCodeMessageDto resultCodeMessageDto = memberAction.login(paramMemberDto, httpSession);
 
         JSONObject resultJsonObj = new JSONObject();
-        resultJsonObj.put("response", responseDto.toMap());
+        resultJsonObj.put("response", resultCodeMessageDto.toMap());
 
         return resultJsonObj.toString();
     }

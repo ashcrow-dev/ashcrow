@@ -11,7 +11,7 @@ import jakarta.servlet.http.HttpSession;
 import lombok.extern.slf4j.Slf4j;
 import server.ashcrow.dao.MemberDao;
 import server.ashcrow.dto.MemberDto;
-import server.ashcrow.dto.ResponseDto;
+import server.ashcrow.dto.ResultCodeMessageDto;
 
 @SuppressWarnings("null")
 @Slf4j
@@ -33,12 +33,12 @@ public class Interceptor implements HandlerInterceptor {
                 String message = "잘못된 접근 차단. 로그인 상태에서 실행 불가.";
                 log.info(message);
 
-                ResponseDto responseDto = new ResponseDto();
-                responseDto.setResultCode(-1);
-                responseDto.setResultMessage(message);
+                ResultCodeMessageDto resultCodeMessageDto = new ResultCodeMessageDto();
+                resultCodeMessageDto.setResultCode(-1);
+                resultCodeMessageDto.setResultMessage(message);
 
                 JSONObject json = new JSONObject();
-                json.put("response", responseDto.toMap());
+                json.put("response", resultCodeMessageDto.toMap());
 
                 response.setCharacterEncoding("UTF-8");
                 response.setContentType("text/html");
@@ -52,7 +52,7 @@ public class Interceptor implements HandlerInterceptor {
                 String message = "비로그인 사용자 요청 차단. 로그인 페이지로 리다이렉트.";
                 log.info(message);
                 
-                ResponseDto responseDto = new ResponseDto();
+                ResultCodeMessageDto responseDto = new ResultCodeMessageDto();
                 responseDto.setResultCode(-1);
                 responseDto.setResultMessage(message);
                 
